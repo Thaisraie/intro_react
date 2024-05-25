@@ -3,12 +3,17 @@ import './Cadastro.css'
 import Usuario from '../../models/Usuario'
 import { cadastrarUsuario } from '../../services/Service';
 import { useNavigate } from 'react-router-dom';
+import { RotatingLines } from 'react-loader-spinner';
 
 function Cadastro() {
 
-  // Controla as rotas.
+  // Redirecionar para tela de login.
   const navigate = useNavigate();
 
+  // Checa se a requisição foi concluida ou não.
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+
+  // Verifica se a senha foi cadastrada de forma correta.
   const [confirmaSenha, setConfirmaSenha] = useState<string>('');
 
   // Estado responsável pelos dados do Usuário que será cadastrado
@@ -20,6 +25,7 @@ function Cadastro() {
     foto: ''
   });
 
+  // Direciona para página de login.
   useEffect(() => {
     if (usuario.id !== 0){
       retornar();
@@ -30,6 +36,7 @@ function Cadastro() {
     navigate('/login')
   }
 
+  // Atualiza o estado dos inputs.
   function atualizarEstado(e: ChangeEvent<HTMLInputElement>){
     setUsuario({
       ...usuario,
@@ -37,16 +44,21 @@ function Cadastro() {
     })
   }
 
+  // Não guardaa no banco de dados recurso apenas do front, foi criado apenas para ele.
   function handleConfirmaSenha(e: ChangeEvent<HTMLInputElement>){
     setConfirmaSenha(e.target.value);
-    console.log(confirmaSenha);
   }
 
   async function cadastrarNovoUsuario(e: FormEvent<HTMLFormElement>){
-    e.preventDefault();
+    e.preventDefault(); // não recarrega a página.
 
+    // checa se a senha foi digitada com a quantidade de caracteries. 
     if(confirmaSenha === usuario.senha && usuario.senha.length >= 8){
 
+      // animação no botão.
+      setIsLoading(true)
+
+      // Cadastra o usuário e a API devolve o id do usuário.
       try{
 
         await cadastrarUsuario(`/usuarios/cadastrar`, usuario, setUsuario);
@@ -58,13 +70,13 @@ function Cadastro() {
 
     }else{
       alert("Dados estão inconsistentes! Verifique os dados do usuário.");
-      setUsuario({...usuario, senha: ''});
-      setConfirmaSenha('');
+      setUsuario({...usuario, senha: ''}); // zera a senha para digitar novamente 
+      setConfirmaSenha(''); 
     }
 
+    // Libera o botão novamente. 
+    setIsLoading(false)
   }
-
-  console.log(JSON.stringify(usuario));
 
   return (
     <>
@@ -143,12 +155,22 @@ function Cadastro() {
               Cancelar
             </button>
             <button 
-                type='submit'
                 className='rounded text-white bg-indigo-400 
                            hover:bg-indigo-900 w-1/2 py-2
-                           flex justify-center' 
-                >
-              Cadastrar
+                           flex justify-center'>
+
+                           {isLoading ? 
+                           
+                            <RotatingLines
+                                strokeColor='white'
+                                strokeWidth="5"
+                                animationDuration="0.75"
+                                width="24"
+                                visible={true}
+                            />
+                            :
+                            <span>Cadastrar</span>
+                        } 
             </button>
           </div>
         </form>

@@ -7,29 +7,35 @@ import { RotatingLines } from 'react-loader-spinner';
 
 function Login() {
 
+    // Direcionar para tela de login.
     const navigate = useNavigate();
 
+    // trazendo propriedades da authcontext.
     const { usuario, handleLogin, isLoading } = useContext(AuthContext)
 
+    // Estado recebe os dados que o usuário digita.
     const [usuarioLogin, setUsuarioLogin] = useState<UsuarioLogin>(
         {} as UsuarioLogin
     )
 
+    // Após o usuário logar entra na home.
     useEffect(() => {
         if(usuario.token !== ''){
             navigate("/home")
         }
     }, [usuario])
 
+    // Função que altera os valores do input. 
     function atualizarEstado(e: ChangeEvent<HTMLInputElement>) {
         setUsuarioLogin({
             ...usuarioLogin,
-            [e.target.name]: e.target.value,
+            [e.target.name]: e.target.value, // Pega os valores do campo nome e os valores digitados.
         })
     }
 
+    // Função login 
     function login(e: ChangeEvent<HTMLFormElement>){
-        e.preventDefault();
+        e.preventDefault(); // impede a página recarregar. 
         handleLogin(usuarioLogin)
     }
 
@@ -70,9 +76,9 @@ function Login() {
                         type='submit'
                         className="rounded bg-indigo-400 flex justify-center
                                    hover:bg-indigo-900 text-white w-1/2 py-2">
-
+                         {/* // If ternário com animação de entrar. */}
                         {isLoading ?
-
+                            // Componente do react spinners. 
                             <RotatingLines
                                 strokeColor='white'
                                 strokeWidth="5"
