@@ -4,6 +4,7 @@ import Usuario from '../../models/Usuario'
 import { cadastrarUsuario } from '../../services/Service';
 import { useNavigate } from 'react-router-dom';
 import { RotatingLines } from 'react-loader-spinner';
+import { ToastAlerta } from '../../utils/ToastAlerta';
 
 function Cadastro() {
 
@@ -62,14 +63,14 @@ function Cadastro() {
       try{
 
         await cadastrarUsuario(`/usuarios/cadastrar`, usuario, setUsuario);
-        alert('Usuário cadastrado com sucesso!');
+        ToastAlerta('Usuário cadastrado com sucesso!', "sucesso");
 
       }catch(error){
-          alert('Erro ao cadastrar o usuário!')
+        ToastAlerta('Erro ao cadastrar o usuário!', "erro")
       }
 
     }else{
-      alert("Dados estão inconsistentes! Verifique os dados do usuário.");
+      ToastAlerta("Dados estão inconsistentes! Verifique os dados do usuário.", "info");
       setUsuario({...usuario, senha: ''}); // zera a senha para digitar novamente 
       setConfirmaSenha(''); 
     }
@@ -156,21 +157,20 @@ function Cadastro() {
             </button>
             <button 
                 className='rounded text-white bg-indigo-400 
-                           hover:bg-indigo-900 w-1/2 py-2
-                           flex justify-center'>
+                hover:bg-indigo-900 w-1/2 py-2
+                flex justify-center'>
 
-                           {isLoading ? 
-                           
-                            <RotatingLines
-                                strokeColor='white'
-                                strokeWidth="5"
-                                animationDuration="0.75"
-                                width="24"
-                                visible={true}
-                            />
-                            :
-                            <span>Cadastrar</span>
-                        } 
+                  {isLoading ? 
+                  <RotatingLines
+                  strokeColor='white'
+                  strokeWidth="5"
+                  animationDuration="0.75"
+                  width="24"
+                  visible={true}
+                  />
+                  :
+                  <span>Cadastrar</span>
+                  } 
             </button>
           </div>
         </form>
