@@ -12,8 +12,8 @@ function Footer() {
 
     if (usuario.token !== ""){
         component = (
-            <div className="flex justify-center bg-indigo-900 text-white">
-                <div className="container flex flex-col items-center py-4">
+            <div className="flex justify-center bg-sky-900 text-white bg-opacity-90">
+                <div className="container flex flex-col items-center py-1">
                     <p className='text-lg font-bold'>
                             Blog Raie | &copy; Copyright: {data}
                     </p>

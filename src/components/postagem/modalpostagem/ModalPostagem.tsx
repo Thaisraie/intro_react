@@ -3,6 +3,7 @@ import FormPostagem from '../formpostagem/FormPostagem';
 
 import 'reactjs-popup/dist/index.css';
 import './ModalPostagem.css'
+import { Divide } from '@phosphor-icons/react';
 
 function ModalPostagem() {
     return (
@@ -10,7 +11,7 @@ function ModalPostagem() {
             <Popup
                 trigger={
                     <button 
-                        className='border rounded px-4 py-2 hover:bg-white hover:text-indigo-800'>
+                        className='rounded-full px-4 py-2 text-white hover:bg-stone-500 bg-yellow-900 hover:text-white ease-in duration-300 hover:bg-opacity-80'>
                         Nova Postagem
                     </button>
                 }

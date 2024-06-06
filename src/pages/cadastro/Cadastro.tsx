@@ -5,6 +5,7 @@ import { cadastrarUsuario } from '../../services/Service';
 import { useNavigate } from 'react-router-dom';
 import { RotatingLines } from 'react-loader-spinner';
 import { ToastAlerta } from '../../utils/ToastAlerta';
+import { CloudArrowUp, Eye, EyeSlash } from '@phosphor-icons/react';
 
 function Cadastro() {
 
@@ -17,6 +18,14 @@ function Cadastro() {
   // Verifica se a senha foi cadastrada de forma correta.
   const [confirmaSenha, setConfirmaSenha] = useState<string>('');
 
+  const [isShowPassword, setIsShowPassword] = useState(false);
+
+  const [isShowConfirmPassword, setIsShowConfirmPassword] = useState(false);
+
+  const handlePassword = () => setIsShowPassword(!isShowPassword); 
+
+  const handleConfirmPassword = () => setIsShowConfirmPassword(!isShowConfirmPassword); 
+
   // Estado responsável pelos dados do Usuário que será cadastrado
   const [usuario, setUsuario] = useState<Usuario>({
     id: 0,
@@ -25,7 +34,7 @@ function Cadastro() {
     senha: '',
     foto: ''
   });
-
+  
   // Direciona para página de login.
   useEffect(() => {
     if (usuario.id !== 0){
@@ -87,77 +96,106 @@ function Cadastro() {
         <form className='flex justify-center items-center flex-col w-2/3 gap-3' 
               onSubmit={cadastrarNovoUsuario}
         >
-          <h2 className='text-slate-900 text-5xl'>Cadastrar</h2>
+          <h2 className='text-yellow-900 text-4xl'>Cadastrar</h2>
+          
           <div className="flex flex-col w-full">
-            <label htmlFor="nome">Nome</label>
+            <label htmlFor="nome"></label>
             <input
               type="text"
               id="nome"
               name="nome"
               placeholder="Nome"
-              className="border-2 border-slate-700 rounded p-2"
+              className="w-full relative flex gap-2 items-center border-2 border-yellow-900 p-1 rounded-lg"
               value={usuario.nome}
               onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
             />
           </div>
+          
           <div className="flex flex-col w-full">
-            <label htmlFor="usuario">Usuario</label>
+            <label htmlFor="usuario"></label>
             <input
               type="text"
               id="usuario"
               name="usuario"
-              placeholder="Usuario"
-              className="border-2 border-slate-700 rounded p-2"
+              placeholder="E-mail"
+              className="w-full relative flex gap-2 items-center border-2 border-yellow-900 p-1 rounded-lg"
               value={usuario.usuario}
               onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
             />
           </div>
-          <div className="flex flex-col w-full">
-            <label htmlFor="foto">Foto</label>
-            <input
-              type="text"
+            
+            <label className='
+            w-full
+            relative 
+            flex 
+            gap-2 
+            items-center 
+            border-2
+            border-yellow-900 
+            p-1 
+            rounded-lg
+            text-slate-400
+            cursor-pointer 
+            justify-between' 
+            htmlFor="foto">
+             Anexar foto
+            <CloudArrowUp size={24}color="#999999"/>
+            </label>
+            <input    
+              type="file"
               id="foto"
               name="foto"
               placeholder="Foto"
-              className="border-2 border-slate-700 rounded p-2"
+              className="arquivo"
               value={usuario.foto}
               onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
             />
-          </div>
-          <div className="flex flex-col w-full">
-            <label htmlFor="senha">Senha</label>
+
+{usuario.foto !== '' &&
+              'Foto anexada'}
+
+            <label className='w-full relative flex gap-2 items-center border-2 border-yellow-900 p-1 rounded-lg' htmlFor="senha">
             <input
-              type="password"
+              type={isShowPassword ? "text" : "password"}
               id="senha"
               name="senha"
               placeholder="Senha"
-              className="border-2 border-slate-700 rounded p-2"
+              className="bg-transparent outline-none rounded-none"
               value={usuario.senha}
               onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
             />
-          </div>
-          <div className="flex flex-col w-full">
-            <label htmlFor="confirmarSenha">Confirmar Senha</label>
+            <button onClick={handlePassword} type='button' className='ml-48'>
+            {isShowPassword ? <Eye size={24} color="#999999" />
+            : <EyeSlash size={24}color="#999999" />}    
+            </button>
+            </label>
+            
+            <label className='w-full relative flex gap-2 items-center border-2 border-yellow-900 p-1 rounded-lg' htmlFor="confirmarSenha">
             <input
-              type="password"
+              type={isShowConfirmPassword ? "text" : "password"}
               id="confirmarSenha"
               name="confirmarSenha"
               placeholder="Confirmar Senha"
-              className="border-2 border-slate-700 rounded p-2"
+              className="bg-transparent outline-none rounded-none"
               value={confirmaSenha}
               onChange={(e: ChangeEvent<HTMLInputElement>) => handleConfirmaSenha(e)}
             />
-          </div>
+            <button onClick={handleConfirmPassword} type='button' className='ml-48'>
+            {isShowConfirmPassword ? <Eye size={24} color="#999999" />
+            : <EyeSlash size={24}color="#999999" />}    
+            </button>
+            </label>
+
           <div className="flex justify-around w-full gap-8">
-            <button className='rounded text-white bg-red-400 
+            <button className='rounded-full text-white bg-red-300 
                   hover:bg-red-700 w-1/2 py-2' 
                   onClick={retornar}
                   >
               Cancelar
             </button>
             <button 
-                className='rounded text-white bg-indigo-400 
-                hover:bg-indigo-900 w-1/2 py-2
+                className='rounded-full text-white bg-stone-500 
+                hover:bg-yellow-900 w-1/2 py-2
                 flex justify-center'>
 
                   {isLoading ? 

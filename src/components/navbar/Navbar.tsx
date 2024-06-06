@@ -1,7 +1,8 @@
 ﻿﻿﻿import { Link, useNavigate } from "react-router-dom"
 import { AuthContext } from "../../contexts/AuthContext"
-import { ReactNode, useContext } from "react"
+import { ReactNode, useContext} from "react"
 import { ToastAlerta } from "../../utils/ToastAlerta"
+
 
 function Navbar() {
 
@@ -17,6 +18,7 @@ function Navbar() {
      * disponível na Context AuthContext, através do Hook useContext(). 
      */
     const { usuario, handleLogout } = useContext(AuthContext)
+
 
     /**
      * Criamos a função logout(), que será responsável por efetuar 
@@ -40,16 +42,17 @@ function Navbar() {
     if (usuario.token !== ""){
 
         component = (
-        <div className='w-full flex justify-center py-4 bg-indigo-900 text-white'>
+        <div className='w-full flex justify-center py-3 bg-sky-900 text-white bg-opacity-90'>
 
-<div className="container flex justify-between text-lg">
+<div className="container flex text-lg justify-between">
     <Link to="/home" className="text-2xl font-bold">Blog Raie</Link>
 
-    <div className='flex gap-4'>
-        <Link to='/postagens' className='hover:underline'>Postagens</Link>
-        <Link to='/temas' className='hover:underline'>Temas</Link>
-        <Link to='/cadastrartema' className='hover:underline'>Cadastrar tema</Link>
-        <Link to='/perfil' className='hover:underline'>Perfil</Link>
+    <div className='flex'>
+        <Link to='/postagens' className='hover:bg-stone-500 hover:bg-opacity-80 ease-in duration-300 rounded-full px-2'>Postagens</Link>
+        <Link to='/temas' className='hover:bg-stone-500 hover:bg-opacity-80 ease-in duration-300 rounded-full px-2'>Temas</Link>
+        <Link to='/cadastrartema' className='hover:bg-stone-500 hover:bg-opacity-80 ease-in duration-300 rounded-full px-2'>Cadastrar tema</Link>
+        <Link to='/perfil' className='hover:bg-stone-500 hover:bg-opacity-80 ease-in duration-300 rounded-full px-2'>Perfil</Link>
+    </div>
 
         {/* 
             Envolvemos o texto Sair com o Componente Link e adicionamos 
@@ -57,8 +60,10 @@ function Navbar() {
             Também adicionamos a classe hover:underline do Tailwind, para 
             criar o efeito underline ao passar o mouse sobre o texto Sair. 
         */}
-        <Link to="" onClick={logout} className="hover:underline">Sair</Link>
-    </div>
+        <div className="">
+            <Link to="" onClick={logout} className="hover:bg-stone-500 hover:bg-opacity-80 ease-in duration-300 rounded-full px-2 font-bold">Sair</Link>
+        </div>
+
     </div>
     </div>
     )

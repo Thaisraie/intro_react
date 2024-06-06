@@ -24,15 +24,15 @@ function Perfil() {
             src="https://i.pinimg.com/736x/a0/f6/7a/a0f67a993f6b61419bb5845c674c787b.jpg" alt="Capa do Perfil" />
 
             <img 
-                className='rounded-full w-56 mx-auto mt-[-8rem] border-8 border-white relative z-10' 
+                className='rounded-full w-48 mx-auto mt-[-8rem] border-8 border-sky-900 relative z-10' 
                 src={usuario.foto} alt={`Foto de perfil de ${usuario.nome}`} />
 
             <div 
                 className="relative mt-[-6rem] h-72 flex flex-col 
-                    bg-sky-500 text-white text-2xl items-center justify-center"
+                    bg-stone-500 bg-opacity-60 text-black text-lg items-center justify-center"
             >
                 <p>Nome: {usuario.nome} </p>
-                <p>Email: {usuario.usuario}</p>
+                <p>Email: {usuario.usuario}</p> 
             </div>
 
         </div>

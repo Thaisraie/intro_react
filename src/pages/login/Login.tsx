@@ -44,8 +44,6 @@ function Login() {
         handleLogin(usuarioLogin)
     }
 
-    console.log(JSON.stringify(usuarioLogin))
-
     return (
         <>
             <div className="grid grid-cols-1 lg:grid-cols-2 h-screen place-items-center font-bold ">
@@ -78,14 +76,14 @@ function Login() {
                             {isShow && <Eye size={24} color="#999999" />}
                             {! isShow && <EyeSlash size={24} color="#999999" />}    
                         </button>
+                    </label>
                         
-                        </label>
                     <div className="flex">
                     </div>
                     <button
                         type='submit'
                         className="rounded-full bg-yellow-900 flex justify-center
-                        hover:bg-zinc-600 text-white w-1/2 py-2">
+                        hover:bg-stone-500 text-white w-1/2 py-2">
                          {/* // If ternário com animação de entrar. */}
                         {isLoading ?
                             // Componente do react spinners. 
