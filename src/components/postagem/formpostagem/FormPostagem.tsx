@@ -194,10 +194,10 @@ function FormPostagem() {
                 <button
                     type='submit'
                     className='rounded-full disabled:bg-slate-200
-                    hover:bg-stone-500 hover:bg-opacity-80 
+                    hover:bg-stone-500  
                     bg-sky-900 ease-in duration-300
-                             text-white font-bold w-1/2 
-                            mx-auto py-2 flex justify-center'
+                    text-white font-bold w-1/2 
+                    mx-auto py-2 flex justify-center'
                     disabled={carregandoTema}
                 >
                     {isLoading ?

@@ -5,7 +5,7 @@ import { cadastrarUsuario } from '../../services/Service';
 import { useNavigate } from 'react-router-dom';
 import { RotatingLines } from 'react-loader-spinner';
 import { ToastAlerta } from '../../utils/ToastAlerta';
-import { CloudArrowUp, Eye, EyeSlash } from '@phosphor-icons/react';
+import {  CloudArrowUp, Eye, EyeSlash } from '@phosphor-icons/react';
 
 function Cadastro() {
 
@@ -34,6 +34,15 @@ function Cadastro() {
     senha: '',
     foto: ''
   });
+
+  const coletaImagem = (e: any) => {
+    if(e.target.files) {
+      setUsuario({
+        ...usuario,
+        foto: URL.createObjectURL(e.target.files[0])
+      })
+    }
+}
   
   // Direciona para página de login.
   useEffect(() => {
@@ -41,6 +50,7 @@ function Cadastro() {
       retornar();
     }
   }, [usuario]);
+
 
   function retornar(){
     navigate('/login')
@@ -90,6 +100,7 @@ function Cadastro() {
 
   return (
     <>
+  
       <div className="grid grid-cols-1 lg:grid-cols-2 h-screen 
             place-items-center font-bold">
         <div className="fundoCadastro hidden lg:block"></div>
@@ -105,7 +116,7 @@ function Cadastro() {
               id="nome"
               name="nome"
               placeholder="Nome"
-              className="w-full relative flex gap-2 items-center border-2 border-yellow-900 p-1 rounded-lg"
+              className="w-full relative flex gap-2 items-center border-2 border-yellow-900 p-1 rounded-lg bg-stone-300 bg-opacity-20"
               value={usuario.nome}
               onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
             />
@@ -118,7 +129,7 @@ function Cadastro() {
               id="usuario"
               name="usuario"
               placeholder="E-mail"
-              className="w-full relative flex gap-2 items-center border-2 border-yellow-900 p-1 rounded-lg"
+              className="w-full relative flex gap-2 items-center border-2 border-yellow-900 p-1 rounded-lg bg-stone-300 bg-opacity-20"
               value={usuario.usuario}
               onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
             />
@@ -132,11 +143,11 @@ function Cadastro() {
             items-center 
             border-2
             border-yellow-900 
-            p-1 
+            p-1  
             rounded-lg
             text-slate-400
             cursor-pointer 
-            justify-between' 
+            justify-between bg-stone-300 bg-opacity-20' 
             htmlFor="foto">
              Anexar foto
             <CloudArrowUp size={24}color="#999999"/>
@@ -147,14 +158,15 @@ function Cadastro() {
               name="foto"
               placeholder="Foto"
               className="arquivo"
-              value={usuario.foto}
-              onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
+              onChange={coletaImagem}
             />
+            <div className='text-yellow-900 bg-stone-400 bg-opacity-40 rounded-lg px-3.5'>
+            {usuario.foto !== '' &&
+              'Foto anexada.'}
+            </div>
 
-{usuario.foto !== '' &&
-              'Foto anexada'}
 
-            <label className='w-full relative flex gap-2 items-center border-2 border-yellow-900 p-1 rounded-lg' htmlFor="senha">
+            <label className='w-full relative flex gap-2 items-center border-2 border-yellow-900 p-1 rounded-lg bg-stone-300 bg-opacity-20 px-1' htmlFor="senha">
             <input
               type={isShowPassword ? "text" : "password"}
               id="senha"
@@ -164,13 +176,13 @@ function Cadastro() {
               value={usuario.senha}
               onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
             />
-            <button onClick={handlePassword} type='button' className='ml-48'>
+            <button onClick={handlePassword} type='button' className='ml-64'>
             {isShowPassword ? <Eye size={24} color="#999999" />
             : <EyeSlash size={24}color="#999999" />}    
             </button>
             </label>
             
-            <label className='w-full relative flex gap-2 items-center border-2 border-yellow-900 p-1 rounded-lg' htmlFor="confirmarSenha">
+            <label className='w-full relative flex gap-2 items-center border-2 border-yellow-900 p-1 rounded-lg bg-stone-300 bg-opacity-20' htmlFor="confirmarSenha">
             <input
               type={isShowConfirmPassword ? "text" : "password"}
               id="confirmarSenha"
@@ -180,23 +192,23 @@ function Cadastro() {
               value={confirmaSenha}
               onChange={(e: ChangeEvent<HTMLInputElement>) => handleConfirmaSenha(e)}
             />
-            <button onClick={handleConfirmPassword} type='button' className='ml-48'>
+            <button onClick={handleConfirmPassword} type='button' className='ml-64'>
             {isShowConfirmPassword ? <Eye size={24} color="#999999" />
             : <EyeSlash size={24}color="#999999" />}    
             </button>
             </label>
 
           <div className="flex justify-around w-full gap-8">
-            <button className='rounded-full text-white bg-red-300 
-                  hover:bg-red-700 w-1/2 py-2' 
+            <button className='rounded-full text-white hover:bg-stone-500 hover:bg-opacity-80 
+                    bg-sky-900 ease-in duration-300 w-1/2 py-2' 
                   onClick={retornar}
                   >
               Cancelar
             </button>
             <button 
-                className='rounded-full text-white bg-stone-500 
-                hover:bg-yellow-900 w-1/2 py-2
-                flex justify-center'>
+                className='rounded-full text-white hover:bg-stone-500 
+                bg-yellow-900 w-1/2 py-2
+                flex justify-center ease-in duration-300'>
 
                   {isLoading ? 
                   <RotatingLines

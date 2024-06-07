@@ -46,7 +46,7 @@ function Login() {
 
     return (
         <>
-            <div className="grid grid-cols-1 lg:grid-cols-2 h-screen place-items-center font-bold ">
+            <div className="grid grid-cols-1 lg:grid-cols-2 h-screen place-items-center font-bold">
                 <form className="flex justify-center items-center flex-col w-2/2 gap-4" 
                     onSubmit={login}
                 >
@@ -57,12 +57,12 @@ function Login() {
                             id="usuario"
                             name="usuario"
                             placeholder="E-mail"
-                            className="border-2 border-yellow-900 rounded-lg p-1"
+                            className="border-2 border-yellow-900 rounded-lg p-1 bg-stone-300 bg-opacity-20"
                             value={usuarioLogin.usuario}
                             onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
                         />
                     </div>
-                    <label className='w-full relative flex gap-2 items-center border-2 border-yellow-900 p-1 rounded-lg' htmlFor="senha">
+                    <label className='w-full relative flex gap-2 items-center border-2 border-yellow-900 p-1 rounded-lg bg-stone-300 bg-opacity-20' htmlFor="senha">
                         <input 
                             type={isShow ? "text" : "password"}
                             id="senha"
@@ -83,7 +83,7 @@ function Login() {
                     <button
                         type='submit'
                         className="rounded-full bg-yellow-900 flex justify-center
-                        hover:bg-stone-500 text-white w-1/2 py-2">
+                        hover:bg-stone-500 text-white w-1/2 py-2 ease-in duration-300">
                          {/* // If ternário com animação de entrar. */}
                         {isLoading ?
                             // Componente do react spinners. 
@@ -100,7 +100,7 @@ function Login() {
                         
                     </button>
 
-                    <hr className="border-slate-800 w-full" />
+                    <hr className="w-full" />
 
                     <p>
                         Ainda não tem uma conta?{' '}

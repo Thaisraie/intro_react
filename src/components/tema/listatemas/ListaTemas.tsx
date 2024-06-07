@@ -1,11 +1,11 @@
 ﻿import { useContext, useEffect, useState } from "react";
-import { DNA } from "react-loader-spinner";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../contexts/AuthContext";
 import Tema from "../../../models/Tema";
 import CardTemas from "../cardtemas/CardTemas";
 import { buscar } from "../../../services/Service";
 import { ToastAlerta } from "../../../utils/ToastAlerta";
+import { BeatLoader } from "react-spinners";
 
 
 function ListaTemas() {
@@ -18,6 +18,9 @@ function ListaTemas() {
     // Encaminha o token para autorizar mostrar o tema. 
     const { usuario, handleLogout } = useContext(AuthContext)
     const token = usuario.token
+
+    const [loading, setLoading] = useState(true);
+
 
     async function buscarTemas() {
         try {
@@ -45,37 +48,37 @@ function ListaTemas() {
         buscarTemas()
     }, [temas.length])
 
+    useEffect(() => {
+        setTimeout(() => {
+            setLoading(false)
+        }, 1000)
+    }, [])
+
     return (
-        <>
-            {/* // Animação até trazer todos os temas.  */}
-            {temas.length === 0 && (
-                <DNA
-                    visible={true}
-                    height="200"
-                    width="200"
-                    ariaLabel="dna-loading"
-                    wrapperStyle={{}}
-                    wrapperClass="dna-wrapper mx-auto"
-                />
-            )}
 
-            <div className="flex justify-center w-full my-4">
-                <div className="container flex flex-col">
-                    <div className="grid grid-cols-1 md:grid-cols-2 
-                                    lg:grid-cols-3 gap-8">
-                        <>
-                            {temas.map((tema) => (
+        loading ?
+        <div className="flex justify-center items-center w-full h-screen">
+            <BeatLoader
+            loading={true}
+            color="#5c919f"/>
+            </div> : 
+    <div>
 
-                                <>
-                                    <CardTemas key={tema.id} tema={tema} />
-                                </>
+            <div className="container mx-auto my-4 
+                grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                   
+                        {temas.length !== 0 ? 
+                            temas.map((temas) => (
+                                <CardTemas key={temas.id} tema={temas}
+                                />             
+                            )) : <div>
+                            <p>Você não possui temas.</p>
+                            </div>
 
-                            ))}
-                        </>
-                    </div>
-                </div>
+                            }
+            
             </div>
-        </>
-    )
+    </div>
+    );
 }
 export default ListaTemas;

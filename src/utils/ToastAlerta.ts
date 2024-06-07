@@ -1,4 +1,4 @@
-import { toast } from 'react-toastify';
+import { Bounce, toast } from 'react-toastify';
 
 export function ToastAlerta(mensagem: string, tipo: string) {
   switch (tipo) {
@@ -41,5 +41,18 @@ export function ToastAlerta(mensagem: string, tipo: string) {
         progress: undefined,
       });
       break;
+
+      case 'noPostagem':
+        toast(mensagem, {
+          position: "bottom-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+          });
   }
 }
