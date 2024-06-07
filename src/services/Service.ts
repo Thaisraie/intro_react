@@ -2,7 +2,7 @@
 
 // Axios irá acessar esse endereço da API.
 const api = axios.create({
-    baseURL: "https://blogpessoal-raie.onrender.com",
+    baseURL: import.meta.env.VITE_API_URL
 });
 
 // Função assincrona que irá cadastrar o usuário.
